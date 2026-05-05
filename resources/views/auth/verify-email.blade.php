@@ -1,31 +1,132 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Verificar Email - Taller Pro</title>
 
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --bs-primary: #FF6600;
+            --electric-blue: #007FFF;
+        }
+
+        .btn-primary {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+            color: #fff;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #e65c00;
+            border-color: #e65c00;
+        }
+
+        .text-electric { color: var(--electric-blue) !important; }
+        .text-primary { color: var(--bs-primary) !important; }
+
+        .auth-bg {
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1486006920555-c77dcf18193c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+
+        .card-auth {
+            border: none;
+            border-top: 5px solid var(--bs-primary);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            letter-spacing: 1px;
+            font-size: 1.5rem;
+        }
+
+        .btn-link-logout {
+            color: #6c757d;
+            text-decoration: underline;
+            font-size: 0.85rem;
+            background: none;
+            border: none;
+            padding: 0;
+            transition: color 0.3s;
+        }
+        .btn-link-logout:hover {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                <i class="bi bi-gear-wide-connected text-primary"></i>
+                RAPID<span class="text-electric">GAAS</span>
+            </a>
         </div>
-    @endif
+    </nav>
 
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
+    <section class="auth-bg d-flex align-items-center justify-content-center flex-grow-1">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-6 col-xl-5">
 
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
+                    <div class="card card-auth p-4">
+                        <div class="card-body text-center">
+                            <div class="mb-4">
+                                <i class="bi bi-envelope-check text-electric display-4"></i>
+                                <h3 class="fw-bold mt-3">¡Casi listo!</h3>
+                            </div>
+
+                            <p class="text-muted">
+                                {{ __('Gracias por registrarte. Antes de comenzar, ¿podrías verificar tu dirección de correo haciendo clic en el enlace que te acabamos de enviar? Si no lo recibiste, te enviaremos otro con gusto.') }}
+                            </p>
+
+                            @if (session('status') == 'verification-link-sent')
+                                <div class="alert alert-success small mb-4" role="alert">
+                                    {{ __('Se ha enviado un nuevo enlace de verificación a la dirección de correo que proporcionaste durante el registro.') }}
+                                </div>
+                            @endif
+
+                            <div class="d-grid gap-3 mt-4">
+                                <form method="POST" action="{{ route('verification.send') }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm w-100">
+                                        {{ __('Reenviar correo de verificación') }} <i class="bi bi-send-check ms-1"></i>
+                                    </button>
+                                </form>
+
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="btn-link-logout">
+                                        {{ __('Cerrar sesión') }}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </form>
+        </div>
+    </section>
 
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
+    <footer class="bg-dark text-white py-3 border-top border-primary border-3">
+        <div class="container text-center">
+            <small class="text-white-50">&copy; {{ date('Y') }} RapidGaas. Gestión de talleres online.</small>
+        </div>
+    </footer>
 
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {{ __('Log Out') }}
-            </button>
-        </form>
-    </div>
-</x-guest-layout>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
