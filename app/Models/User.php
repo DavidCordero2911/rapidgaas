@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use JeroenNoten\LaravelAdminLte\AdminLte;
 
 class User extends Authenticatable
 {
@@ -25,7 +26,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    //Casts para que nuestra base de datos sepa que tipo de dato es cada campo
     protected function casts(): array
     {
         return [
@@ -34,11 +34,43 @@ class User extends Authenticatable
         ];
     }
 
-    // ------ Relaciones ------
-
-    //Relación con Cliente (1 a 1)
     public function cliente()
     {
         return $this->hasOne(Cliente::class);
+    }
+
+    public function adminlte_image()
+    {
+        return null;
+    }
+
+    public function adminlte_desc()
+    {
+        return ucfirst(str_replace('_', ' ', $this->getRoleNames()->first()));
+    }
+
+    public function adminlte_profile_url()
+    {
+        return route('profile.edit');
+    }
+
+    public function adminlte_logout_url()
+    {
+        return route('logout');
+    }
+
+    public function adminlte_menu()
+    {
+        return [];
+    }
+
+    public function adminlte_name()
+    {
+        return $this->nombre;
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->nombre;
     }
 }

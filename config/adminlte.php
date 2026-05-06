@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'RapidGaas',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Rapid</b>Gaas',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -134,11 +134,11 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
-    'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    'usermenu_desc' => true,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -263,7 +263,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => 'profile',
     'disable_darkmode_routes' => false,
 
     /*
@@ -300,37 +300,91 @@ return [
 
     'menu' => [
 
-        // Superadmin
+        // ===== SUPERADMIN =====
+        [
+            'text'    => 'Dashboard',
+            'url'     => 'superadmin/dashboard',
+            'icon'    => 'fas fa-tachometer-alt',
+            'can'     => 'superadmin',
+        ],
         [
             'text'    => 'Gestión de Usuarios',
-            'icon'    => 'fas fa-users',
             'url'     => 'superadmin/usuarios',
+            'icon'    => 'fas fa-users-cog',
+            'can'     => 'superadmin',
         ],
         [
-            'text'    => 'Gestión del Taller',
-            'icon'    => 'fas fa-cogs',
-            'url'     => 'superadmin/taller',
-        ],
-
-        // Admin taller
-        [
-            'text'    => 'Panel de Gestión',
-            'icon'    => 'fas fa-clipboard-list',
-            'url'     => 'admin/dashboard',
-        ],
-
-        // Mecánico
-        [
-            'text'    => 'Mis Reparaciones',
-            'icon'    => 'fas fa-wrench',
-            'url'     => 'mecanico/dashboard',
-        ],
-
-        // Cliente
-        [
-            'text'    => 'Mi Vehículo',
+            'text'    => 'Vehículos',
+            'url'     => 'superadmin/vehiculos',
             'icon'    => 'fas fa-motorcycle',
-            'url'     => 'cliente/dashboard',
+            'can'     => 'superadmin',
+        ],
+        [
+            'text'    => 'Órdenes de trabajo',
+            'url'     => 'superadmin/ordenes',
+            'icon'    => 'fas fa-clipboard-list',
+            'can'     => 'superadmin',
+        ],
+
+        // ===== ADMIN TALLER =====
+        [
+            'header' => 'GESTIÓN TALLER',
+        ],
+        [
+            'text'    => 'Dashboard Admin',
+            'url'     => 'admin/dashboard',
+            'icon'    => 'fas fa-tachometer-alt',
+        ],
+        [
+            'text'    => 'Clientes',
+            'url'     => 'admin/clientes',
+            'icon'    => 'fas fa-users',
+        ],
+        [
+            'text'    => 'Vehículos',
+            'url'     => 'admin/vehiculos',
+            'icon'    => 'fas fa-motorcycle',
+        ],
+        [
+            'text'    => 'Órdenes',
+            'url'     => 'admin/ordenes',
+            'icon'    => 'fas fa-clipboard-list',
+        ],
+
+        // ===== MECÁNICO =====
+        [
+            'header' => 'MECÁNICO',
+        ],
+        [
+            'text'    => 'Panel Mecánico',
+            'icon'    => 'fas fa-wrench',
+            'submenu' => [
+                [
+                    'text' => 'Dashboard',
+                    'url'  => 'mecanico/dashboard',
+                    'icon' => 'far fa-circle',
+                ],
+                [
+                    'text' => 'Órdenes activas',
+                    'url'  => 'mecanico/ordenes/activas',
+                    'icon' => 'far fa-circle',
+                ],
+                [
+                    'text' => 'Órdenes finalizadas',
+                    'url'  => 'mecanico/ordenes/finalizadas',
+                    'icon' => 'far fa-circle',
+                ],
+            ],
+        ],
+
+        // ===== CLIENTE =====
+        [
+            'header' => 'CLIENTE',
+        ],
+        [
+            'text' => 'Mi Vehículo',
+            'url'  => 'cliente/dashboard',
+            'icon' => 'fas fa-motorcycle',
         ],
 
     ],
