@@ -69,7 +69,7 @@
             <h5 class="fw-bold mb-1"><i class="fas fa-user-edit me-2" style="color:#FF6600;"></i>Cambiar Rol</h5>
             <p class="mb-0" style="opacity:0.75; font-size:0.9rem;">Modifica el rol asignado a <strong>{{ $usuario->nombre }}</strong></p>
         </div>
-        <a href="{{ route('superadmin.usuarios') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
+        <a href="{{ route('admin.usuarios') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
             <i class="fas fa-arrow-left me-1"></i> Volver
         </a>
     </div>
@@ -88,7 +88,7 @@
                     <small class="text-muted">{{ $usuario->email }}</small>
                 </div>
 
-                <form method="POST" action="{{ route('superadmin.actualizarRol', $usuario->id) }}">
+                <form method="POST" action="{{ route('admin.actualizarRol', $usuario->id) }}">
                     @csrf
 
                     <p class="fw-semibold mb-3">Selecciona el nuevo rol:</p>

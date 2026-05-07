@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Rapid</b>Gaas',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<i class="fas fa-motorcycle" style="color:#FF6600;"></i> <b>Rapid</b><span style="color:#007FFF;">Gaas</span>',
+    'logo_img' => null,
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -300,91 +300,84 @@ return [
 
     'menu' => [
 
-        // ===== SUPERADMIN =====
+        // ===== ADMIN =====
         [
-            'text'    => 'Dashboard',
-            'url'     => 'superadmin/dashboard',
-            'icon'    => 'fas fa-tachometer-alt',
-            'can'     => 'superadmin',
-        ],
-        [
-            'text'    => 'Gestión de Usuarios',
-            'url'     => 'superadmin/usuarios',
-            'icon'    => 'fas fa-users-cog',
-            'can'     => 'superadmin',
-        ],
-        [
-            'text'    => 'Vehículos',
-            'url'     => 'superadmin/vehiculos',
-            'icon'    => 'fas fa-motorcycle',
-            'can'     => 'superadmin',
-        ],
-        [
-            'text'    => 'Órdenes de trabajo',
-            'url'     => 'superadmin/ordenes',
-            'icon'    => 'fas fa-clipboard-list',
-            'can'     => 'superadmin',
-        ],
-
-        // ===== ADMIN TALLER =====
-        [
-            'header' => 'GESTIÓN TALLER',
-        ],
-        [
-            'text'    => 'Dashboard Admin',
-            'url'     => 'admin/dashboard',
-            'icon'    => 'fas fa-tachometer-alt',
-        ],
-        [
-            'text'    => 'Clientes',
-            'url'     => 'admin/clientes',
-            'icon'    => 'fas fa-users',
-        ],
-        [
-            'text'    => 'Vehículos',
-            'url'     => 'admin/vehiculos',
-            'icon'    => 'fas fa-motorcycle',
-        ],
-        [
-            'text'    => 'Órdenes',
-            'url'     => 'admin/ordenes',
-            'icon'    => 'fas fa-clipboard-list',
+            'text' => 'Panel de Control',
+            'icon' => 'fas fa-shield-alt',
+            'can'  => 'admin',
+            'submenu' => [
+                [
+                    'text' => 'Dashboard',
+                    'url'  => 'admin/dashboard',
+                    'icon' => 'fas fa-tachometer-alt',
+                ],
+                [
+                    'text' => 'Gestión',
+                    'icon' => 'fas fa-cogs',
+                    'submenu' => [
+                        [
+                            'text' => 'Usuarios',
+                            'url'  => 'admin/usuarios',
+                            'icon' => 'fas fa-users-cog',
+                        ],
+                        [
+                            'text' => 'Clientes',
+                            'url'  => 'admin/clientes',
+                            'icon' => 'fas fa-users',
+                        ],
+                        [
+                            'text' => 'Vehículos',
+                            'url'  => 'admin/vehiculos',
+                            'icon' => 'fas fa-motorcycle',
+                        ],
+                        [
+                            'text' => 'Órdenes de trabajo',
+                            'url'  => 'admin/ordenes',
+                            'icon' => 'fas fa-clipboard-list',
+                        ],
+                    ],
+                ],
+            ],
         ],
 
         // ===== MECÁNICO =====
         [
             'header' => 'MECÁNICO',
+            'can'    => 'mecanico_o_admin',
         ],
         [
-            'text'    => 'Panel Mecánico',
-            'icon'    => 'fas fa-wrench',
+            'text' => 'Panel Mecánico',
+            'icon' => 'fas fa-wrench',
+            'can'  => 'mecanico_o_admin',
             'submenu' => [
                 [
                     'text' => 'Dashboard',
                     'url'  => 'mecanico/dashboard',
-                    'icon' => 'far fa-circle',
+                    'icon' => 'fas fa-tachometer-alt',
                 ],
                 [
                     'text' => 'Órdenes activas',
                     'url'  => 'mecanico/ordenes/activas',
-                    'icon' => 'far fa-circle',
+                    'icon' => 'fas fa-tools',
                 ],
                 [
                     'text' => 'Órdenes finalizadas',
                     'url'  => 'mecanico/ordenes/finalizadas',
-                    'icon' => 'far fa-circle',
+                    'icon' => 'fas fa-check-circle',
                 ],
             ],
         ],
 
         // ===== CLIENTE =====
         [
-            'header' => 'CLIENTE',
+            'header' => 'MI ÁREA',
+            'can'    => 'cliente',
         ],
         [
             'text' => 'Mi Vehículo',
             'url'  => 'cliente/dashboard',
             'icon' => 'fas fa-motorcycle',
+            'can'  => 'cliente',
         ],
 
     ],

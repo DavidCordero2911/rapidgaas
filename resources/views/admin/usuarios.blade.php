@@ -110,7 +110,7 @@
             <h5 class="fw-bold mb-1"><i class="fas fa-users-cog me-2" style="color:#FF6600;"></i>Gestión de Usuarios</h5>
             <p class="mb-0" style="opacity:0.75; font-size:0.9rem;">Administra los usuarios registrados, sus roles y estados.</p>
         </div>
-        <a href="{{ route('superadmin.dashboard') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
             <i class="fas fa-arrow-left me-1"></i> Volver
         </a>
     </div>
@@ -168,10 +168,10 @@
                     <td class="text-muted small">{{ $usuario->created_at->format('d/m/Y') }}</td>
                     <td>
                         <div class="d-flex gap-1">
-                            <a href="{{ route('superadmin.cambiarRol', $usuario->id) }}" class="btn btn-accion btn-editar">
+                            <a href="{{ route('admin.cambiarRol', $usuario->id) }}" class="btn btn-accion btn-editar">
                                 <i class="fas fa-user-edit me-1"></i>Rol
                             </a>
-                            <form method="POST" action="{{ route('superadmin.toggleActivo', $usuario->id) }}">
+                            <form method="POST" action="{{ route('admin.toggleActivo', $usuario->id) }}">
                                 @csrf
                                 @if($usuario->activo)
                                     <button type="submit" class="btn btn-accion btn-desactivar">

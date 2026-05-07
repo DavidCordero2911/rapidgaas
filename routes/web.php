@@ -2,56 +2,40 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SuperAdminController;
-use App\Http\Controllers\AdminTallerController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MecanicoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\OrdenTrabajoController;
 use App\Http\Controllers\RegistroReparacionController;
 
-// Página de inicio
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Logout forzado (temporal)
 Route::get('/forzar-logout', function() {
     auth()->logout();
     session()->flush();
     return redirect('/login');
 });
 
-// Rutas de autenticación de Breeze
 require __DIR__.'/auth.php';
 
-// Perfil
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// ==================== SUPERADMIN ====================
-Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->group(function () {
-    Route::get('/dashboard', [SuperAdminController::class, 'index'])->name('superadmin.dashboard');
+// ==================== ADMIN ====================
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
     // Usuarios
-    Route::get('/usuarios', [SuperAdminController::class, 'usuarios'])->name('superadmin.usuarios');
-    Route::get('/usuarios/{id}/cambiar-rol', [SuperAdminController::class, 'cambiarRol'])->name('superadmin.cambiarRol');
-    Route::post('/usuarios/{id}/cambiar-rol', [SuperAdminController::class, 'actualizarRol'])->name('superadmin.actualizarRol');
-    Route::post('/usuarios/{id}/toggle-activo', [SuperAdminController::class, 'toggleActivo'])->name('superadmin.toggleActivo');
-
-    // Vehículos (solo vista)
-    Route::get('/vehiculos', [SuperAdminController::class, 'vehiculos'])->name('superadmin.vehiculos');
-
-    // Órdenes (solo vista)
-    Route::get('/ordenes', [SuperAdminController::class, 'ordenes'])->name('superadmin.ordenes');
-});
-
-// ==================== ADMIN TALLER + SUPERADMIN ====================
-Route::middleware(['auth', 'role:admin_taller|superadmin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminTallerController::class, 'index'])->name('admin.dashboard');
+    Route::get('/usuarios', [AdminController::class, 'usuarios'])->name('admin.usuarios');
+    Route::get('/usuarios/{id}/cambiar-rol', [AdminController::class, 'cambiarRol'])->name('admin.cambiarRol');
+    Route::post('/usuarios/{id}/cambiar-rol', [AdminController::class, 'actualizarRol'])->name('admin.actualizarRol');
+    Route::post('/usuarios/{id}/toggle-activo', [AdminController::class, 'toggleActivo'])->name('admin.toggleActivo');
 
     // CRUD Clientes
     Route::get('/clientes', [ClienteController::class, 'listar'])->name('admin.clientes.index');
@@ -80,7 +64,7 @@ Route::middleware(['auth', 'role:admin_taller|superadmin'])->prefix('admin')->gr
 });
 
 // ==================== MECÁNICO ====================
-Route::middleware(['auth', 'role:mecanico|superadmin'])->prefix('mecanico')->group(function () {
+Route::middleware(['auth', 'role:mecanico|admin'])->prefix('mecanico')->group(function () {
     Route::get('/dashboard', [MecanicoController::class, 'index'])->name('mecanico.dashboard');
     Route::get('/ordenes/activas', [MecanicoController::class, 'ordenesActivas'])->name('mecanico.ordenesActivas');
     Route::get('/ordenes/finalizadas', [MecanicoController::class, 'ordenesFinalizadas'])->name('mecanico.ordenesFinalizadas');
@@ -90,6 +74,6 @@ Route::middleware(['auth', 'role:mecanico|superadmin'])->prefix('mecanico')->gro
 });
 
 // ==================== CLIENTE ====================
-Route::middleware(['auth', 'role:cliente|superadmin'])->prefix('cliente')->group(function () {
+Route::middleware(['auth', 'role:cliente|admin'])->prefix('cliente')->group(function () {
     Route::get('/dashboard', [ClienteController::class, 'index'])->name('cliente.dashboard');
 });

@@ -106,10 +106,7 @@
                     @if (Route::has('login'))
                         @auth
                             <li class="nav-item">
-                                @if (auth()->user()->hasRole('superadmin'))
-                                    <a href="{{ route('superadmin.dashboard') }}" class="btn btn-outline-light btn-sm">Ir al
-                                        Panel</a>
-                                @elseif(auth()->user()->hasRole('admin_taller'))
+                                @if (auth()->user()->hasRole('admin'))
                                     <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-light btn-sm">Ir al
                                         Panel</a>
                                 @elseif(auth()->user()->hasRole('mecanico'))

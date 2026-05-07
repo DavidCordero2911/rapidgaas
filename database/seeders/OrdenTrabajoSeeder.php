@@ -12,7 +12,7 @@ class OrdenTrabajoSeeder extends Seeder
     public function run(): void
     {
         $mecanico  = User::where('email', 'mecanico@taller.com')->first();
-        $admin     = User::where('email', 'admin@taller.com')->first();
+        $admin = User::where('email', 'admin@rapidgaas.com')->first();
         $vehiculo1 = Vehiculo::where('matricula', '1234ABC')->first();
         $vehiculo2 = Vehiculo::where('matricula', '5678DEF')->first();
         $vehiculo3 = Vehiculo::where('matricula', '9012GHI')->first();
