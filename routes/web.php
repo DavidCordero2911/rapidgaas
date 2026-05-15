@@ -74,6 +74,6 @@ Route::middleware(['auth', 'role:mecanico|admin'])->prefix('mecanico')->group(fu
 });
 
 // ==================== CLIENTE ====================
-Route::middleware(['auth', 'role:cliente|admin'])->prefix('cliente')->group(function () {
+Route::middleware(['auth', 'verified', 'role:cliente|admin'])->prefix('cliente')->group(function () {
     Route::get('/dashboard', [ClienteController::class, 'index'])->name('cliente.dashboard');
 });
