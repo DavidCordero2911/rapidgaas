@@ -12,8 +12,19 @@ class ClienteController extends Controller
     public function index()
     {
         $user    = auth()->user();
-        $cliente = Cliente::where('user_id', $user->id)->with('vehiculos.ordenes')->first();
-        return view('cliente.Cliente_Dashboard', compact('cliente'));
+        $cliente = Cliente::where('user_id', $user->id)
+            ->with(['vehiculos.ordenes.actualizaciones'])
+            ->first();
+
+        $orden = null;
+        $vehiculo = null;
+
+        if ($cliente && $cliente->vehiculos->isNotEmpty()) {
+            $vehiculo = $cliente->vehiculos->first();
+            $orden    = $vehiculo->ordenes->sortByDesc('created_at')->first();
+        }
+
+        return view('cliente.Cliente_Dashboard', compact('cliente', 'vehiculo', 'orden'));
     }
 
     // Listado de clientes (admin)
