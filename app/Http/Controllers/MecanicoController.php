@@ -26,7 +26,7 @@ class MecanicoController extends Controller
 
     public function actualizarEstado(Request $request, $id)
     {
-        $orden = OrdenTrabajo::findOrFail($id);
+        $orden = OrdenTrabajo::with(['vehiculo.cliente.user'])->findOrFail($id);
 
         $request->validate([
             'estado'     => ['required', 'in:en_espera,en_diagnostico,en_reparacion,finalizado,entregado'],
@@ -44,6 +44,13 @@ class MecanicoController extends Controller
             'estado_nuevo'    => $request->estado,
             'comentario'      => $request->comentario ?? 'Estado actualizado por el mecánico.',
         ]);
+
+        // Enviar notificación al cliente
+        if ($orden->vehiculo->cliente && $orden->vehiculo->cliente->user) {
+            $orden->vehiculo->cliente->user->notify(
+                new \App\Notifications\CambioEstadoOrden($orden)
+            );
+        }
 
         return redirect()->route('mecanico.dashboard')
             ->with('success', 'Estado actualizado correctamente.');
