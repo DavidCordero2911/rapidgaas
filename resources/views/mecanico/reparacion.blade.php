@@ -51,7 +51,7 @@
 <div class="welcome-banner">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h4><i class="fas fa-tools me-2" style="color:#FF6600;"></i>Registro de Reparación</h4>
+            <h4><i class="fas fa-tools me-2" style="color:#FF6600;"></i> Registro de Reparación</h4>
             <p>Vehículo: <strong>{{ $orden->vehiculo->marca }} {{ $orden->vehiculo->modelo }}</strong> — Matrícula: <strong>{{ $orden->vehiculo->matricula }}</strong></p>
         </div>
         <a href="{{ route('mecanico.dashboard') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
@@ -68,22 +68,54 @@
 @endif
 
 {{-- Info del vehículo --}}
-<div class="info-vehiculo">
-    <div class="row">
-        <div class="col-md-3">
-            <p><span class="fw-semibold">Cliente:</span> {{ $orden->vehiculo->cliente->nombre ?? '—' }}</p>
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 rounded-3 p-3 text-center" style="box-shadow:0 4px 15px rgba(0,0,0,0.08); border-top:3px solid var(--naranja) !important;">
+            <div style="font-size:1.5rem; color:var(--naranja); margin-bottom:8px;">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="text-muted small">Cliente</div>
+            <div class="fw-bold">{{ $orden->vehiculo->cliente->nombre ?? '—' }}</div>
         </div>
-        <div class="col-md-3">
-            <p><span class="fw-semibold">Teléfono:</span> {{ $orden->vehiculo->cliente->telefono ?? '—' }}</p>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 rounded-3 p-3 text-center" style="box-shadow:0 4px 15px rgba(0,0,0,0.08); border-top:3px solid var(--azul) !important;">
+            <div style="font-size:1.5rem; color:var(--azul); margin-bottom:8px;">
+                <i class="fas fa-phone"></i>
+            </div>
+            <div class="text-muted small">Teléfono</div>
+            <div class="fw-bold">{{ $orden->vehiculo->cliente->telefono ?? '—' }}</div>
         </div>
-        <div class="col-md-3">
-            <p><span class="fw-semibold">Año:</span> {{ $orden->vehiculo->anio ?? '—' }}</p>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 rounded-3 p-3 text-center" style="box-shadow:0 4px 15px rgba(0,0,0,0.08); border-top:3px solid var(--naranja) !important;">
+            <div style="font-size:1.5rem; color:var(--naranja); margin-bottom:8px;">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="text-muted small">Año</div>
+            <div class="fw-bold">{{ $orden->vehiculo->anio ?? '—' }}</div>
         </div>
-        <div class="col-md-3">
-            <p><span class="fw-semibold">Color:</span> {{ $orden->vehiculo->color ?? '—' }}</p>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 rounded-3 p-3 text-center" style="box-shadow:0 4px 15px rgba(0,0,0,0.08); border-top:3px solid var(--azul) !important;">
+            <div style="font-size:1.5rem; color:var(--azul); margin-bottom:8px;">
+                <i class="fas fa-palette"></i>
+            </div>
+            <div class="text-muted small">Color</div>
+            <div class="fw-bold">{{ $orden->vehiculo->color ?? '—' }}</div>
         </div>
-        <div class="col-12">
-            <p class="mb-0"><span class="fw-semibold">Diagnóstico inicial:</span> {{ $orden->diagnostico_inicial ?? 'Sin diagnóstico registrado.' }}</p>
+    </div>
+    <div class="col-12">
+        <div class="card border-0 rounded-3 p-3" style="box-shadow:0 4px 15px rgba(0,0,0,0.08); border-left:4px solid var(--naranja) !important;">
+            <div class="d-flex align-items-start gap-3" style="padding:5px 0;">
+                <div style="font-size:1.3rem; color:var(--naranja); margin-top:2px; margin-right:8px;">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <div>
+                    <div class="text-muted small mb-1">Diagnóstico inicial</div>
+                    <div class="fw-semibold">{{ $orden->diagnostico_inicial ?? 'Sin diagnóstico registrado.' }}</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

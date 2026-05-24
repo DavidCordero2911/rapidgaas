@@ -10,10 +10,17 @@
     .orden-card { border:none; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.08); margin-bottom:20px; overflow:hidden; }
     .orden-card-header { background:linear-gradient(135deg,#1a1a2e,#0f3460); color:white; padding:15px 20px; }
     .badge-estado { padding:5px 12px; border-radius:20px; font-size:0.78rem; font-weight:600; }
+    .estado-en_espera { background-color:#6c757d; color:white; }
+    .estado-en_diagnostico { background-color:#007FFF; color:white; }
+    .estado-en_reparacion { background-color:#FF6600; color:white; }
     .estado-finalizado { background-color:#28a745; color:white; }
-    .estado-entregado { background-color:#1a1a2e; color:white; }
+    .estado-entregado { background-color:#1a1a2e; color:white; border:1px solid #444; }
     .btn-ver { background-color:var(--azul); color:white; border:none; border-radius:20px; padding:6px 16px; font-weight:600; font-size:0.85rem; transition:all 0.3s; text-decoration:none; display:inline-block; }
     .btn-ver:hover { background-color:#0066CC; color:white; }
+    .btn-actualizar { background-color:var(--naranja); color:white; border:none; border-radius:20px; padding:6px 16px; font-weight:600; font-size:0.85rem; transition:all 0.3s; }
+    .btn-actualizar:hover { background-color:#e65c00; color:white; }
+    .form-select:focus, .form-control:focus { border-color:var(--azul); box-shadow:0 0 0 0.25rem rgba(0,127,255,0.15); }
+    .diagnostico-box { background:#f8f9fa; border-radius:8px; padding:12px 15px; border-left:3px solid var(--naranja); font-size:0.88rem; color:#444; }
 </style>
 @stop
 
@@ -22,7 +29,7 @@
 <div class="welcome-banner">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h4><i class="fas fa-check-circle me-2" style="color:#FF6600;"></i>Órdenes Finalizadas</h4>
+            <h4><i class="fas fa-check-circle me-2" style="color:#FF6600;"></i>  Órdenes Finalizadas</h4>
             <p>Historial de reparaciones completadas.</p>
         </div>
         <a href="{{ route('mecanico.dashboard') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
@@ -30,6 +37,13 @@
         </a>
     </div>
 </div>
+
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show rounded-3">
+        <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
 
 <h5 class="section-title">Órdenes finalizadas ({{ $ordenes->count() }})</h5>
 
@@ -45,7 +59,7 @@
         </span>
     </div>
     <div class="card-body p-4">
-        <div class="row g-3">
+        <div class="row g-3 mb-3">
             <div class="col-md-6">
                 <p class="mb-1"><span class="fw-semibold">Cliente:</span> {{ $orden->vehiculo->cliente->nombre ?? '—' }}</p>
                 <p class="mb-1"><span class="fw-semibold">Teléfono:</span> {{ $orden->vehiculo->cliente->telefono ?? '—' }}</p>
@@ -64,18 +78,51 @@
                 </p>
             </div>
             <div class="col-md-6">
-                <p class="mb-1"><span class="fw-semibold">Diagnóstico inicial:</span></p>
-                <p class="text-muted small">{{ $orden->diagnostico_inicial ?? '—' }}</p>
-                <p class="mb-1"><span class="fw-semibold">Observaciones:</span></p>
-                <p class="text-muted small">{{ $orden->observaciones ?? '—' }}</p>
+                <p class="mb-2"><span class="fw-semibold">Diagnóstico inicial:</span></p>
+                <div class="diagnostico-box mb-3">
+                    {{ $orden->diagnostico_inicial ?? 'Sin diagnóstico registrado.' }}
+                </div>
+                <p class="mb-2"><span class="fw-semibold">Diagnóstico final:</span></p>
+                <div class="diagnostico-box">
+                    {{ $orden->observaciones ?? 'Sin diagnóstico final registrado.' }}
+                </div>
             </div>
         </div>
 
-        <div class="mt-3">
+        <div class="mb-3">
             <a href="{{ route('mecanico.reparacion', $orden->id) }}" class="btn-ver">
                 <i class="fas fa-eye me-2"></i>Ver registro de reparación
             </a>
         </div>
+
+        <hr>
+
+        {{-- Formulario cambio de estado --}}
+        <form method="POST" action="{{ route('mecanico.actualizarEstado', $orden->id) }}">
+            @csrf
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold small">Actualizar estado</label>
+                    <select name="estado" class="form-select form-select-sm">
+                        <option value="en_espera"      {{ $orden->estado == 'en_espera'      ? 'selected' : '' }}>En espera</option>
+                        <option value="en_diagnostico" {{ $orden->estado == 'en_diagnostico' ? 'selected' : '' }}>En diagnóstico</option>
+                        <option value="en_reparacion"  {{ $orden->estado == 'en_reparacion'  ? 'selected' : '' }}>En reparación</option>
+                        <option value="finalizado"     {{ $orden->estado == 'finalizado'     ? 'selected' : '' }}>Finalizado</option>
+                        <option value="entregado"      {{ $orden->estado == 'entregado'      ? 'selected' : '' }}>Entregado</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Comentario (opcional)</label>
+                    <input type="text" name="comentario" class="form-control form-control-sm"
+                        placeholder="Añade una observación...">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-actualizar w-100">
+                        <i class="fas fa-save me-1"></i>Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 @empty

@@ -149,7 +149,7 @@
     <div class="welcome-banner">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h4><i class="fas fa-wrench me-2" style="color:#FF6600;"></i>Panel Mecánico</h4>
+                <h4><i class="fas fa-wrench me-2" style="color:#FF6600;"></i> Panel Mecánico</h4>
                 <p>Bienvenido, <strong>{{ auth()->user()->nombre }}</strong>. Aquí puedes gestionar tus reparaciones
                     asignadas.</p>
             </div>
@@ -226,14 +226,14 @@
                     <div class="col-md-6">
                         <p class="mb-1"><span class="fw-semibold">Diagnóstico inicial:</span></p>
                         <p class="text-muted small">{{ $orden->diagnostico_inicial ?? 'Sin diagnóstico registrado.' }}</p>
-                    </div>
-                </div>
 
-                {{-- Botón gestionar reparación --}}
-                <div class="mb-3">
-                    <a href="{{ route('mecanico.reparacion', $orden->id) }}" class="btn-reparacion">
-                        <i class="fas fa-tools me-2"></i>Gestionar reparación
-                    </a>
+                        {{-- Botón gestionar reparación --}}
+                        <div class="mt-3">
+                            <a href="{{ route('mecanico.reparacion', $orden->id) }}" class="btn-reparacion">
+                                <i class="fas fa-tools me-2"></i>Gestionar reparación
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 {{-- Formulario actualizar estado --}}
