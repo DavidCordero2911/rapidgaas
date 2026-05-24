@@ -66,7 +66,7 @@
 <div class="welcome-banner">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h5 class="fw-bold mb-1"><i class="fas fa-user-edit me-2" style="color:#FF6600;"></i>Cambiar Rol</h5>
+            <h5 class="fw-bold mb-1"><i class="fas fa-user-edit me-2" style="color:#FF6600;"></i>  Cambiar Rol</h5>
             <p class="mb-0" style="opacity:0.75; font-size:0.9rem;">Modifica el rol asignado a <strong>{{ $usuario->nombre }}</strong></p>
         </div>
         <a href="{{ route('admin.usuarios') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
@@ -108,7 +108,7 @@
 
                     <div class="d-grid mt-4">
                         <button type="submit" class="btn btn-guardar">
-                            <i class="fas fa-save me-2"></i>Guardar cambios
+                            <i class="fas fa-save me-2"></i>  Guardar cambios
                         </button>
                     </div>
                 </form>

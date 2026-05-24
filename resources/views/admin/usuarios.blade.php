@@ -107,7 +107,7 @@
 <div class="welcome-banner">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h5 class="fw-bold mb-1"><i class="fas fa-users-cog me-2" style="color:#FF6600;"></i>Gestión de Usuarios</h5>
+            <h5 class="fw-bold mb-1"><i class="fas fa-users-cog me-2" style="color:#FF6600;"></i>  Gestión de Usuarios</h5>
             <p class="mb-0" style="opacity:0.75; font-size:0.9rem;">Administra los usuarios registrados, sus roles y estados.</p>
         </div>
         <a href="{{ route('admin.dashboard') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
@@ -169,17 +169,17 @@
                     <td>
                         <div class="d-flex gap-1">
                             <a href="{{ route('admin.cambiarRol', $usuario->id) }}" class="btn btn-accion btn-editar">
-                                <i class="fas fa-user-edit me-1"></i>Rol
+                                <i class="fas fa-user-edit me-1"></i> Rol
                             </a>
                             <form method="POST" action="{{ route('admin.toggleActivo', $usuario->id) }}">
                                 @csrf
                                 @if($usuario->activo)
                                     <button type="submit" class="btn btn-accion btn-desactivar">
-                                        <i class="fas fa-ban me-1"></i>Desactivar
+                                        <i class="fas fa-ban me-1"></i> Desactivar
                                     </button>
                                 @else
                                     <button type="submit" class="btn btn-accion btn-activar">
-                                        <i class="fas fa-check me-1"></i>Activar
+                                        <i class="fas fa-check me-1"></i> Activar
                                     </button>
                                 @endif
                             </form>

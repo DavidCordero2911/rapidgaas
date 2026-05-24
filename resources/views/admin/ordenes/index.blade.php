@@ -29,7 +29,7 @@
 <div class="welcome-banner">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h5 class="fw-bold mb-1"><i class="fas fa-clipboard-list me-2" style="color:#FF6600;"></i>Órdenes de Trabajo</h5>
+            <h5 class="fw-bold mb-1"><i class="fas fa-clipboard-list me-2" style="color:#FF6600;"></i>  Órdenes de Trabajo</h5>
             <p class="mb-0" style="opacity:0.75; font-size:0.9rem;">Gestiona las órdenes de trabajo del taller.</p>
         </div>
         <a href="{{ route('admin.ordenes.create') }}" class="btn btn-naranja">

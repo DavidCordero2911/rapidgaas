@@ -216,7 +216,7 @@
 
                 <div class="d-grid mt-auto">
                     <button type="submit" class="btn btn-guardar">
-                        <i class="fas fa-save me-2"></i>Guardar registro de reparación
+                        <i class="fas fa-save me-2"></i>  Guardar registro de reparación
                     </button>
                 </div>
             </div>

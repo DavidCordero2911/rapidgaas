@@ -15,7 +15,7 @@
 <div class="welcome-banner">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h5 class="fw-bold mb-1"><i class="fas fa-user-plus me-2" style="color:#FF6600;"></i>Nuevo Cliente</h5>
+            <h5 class="fw-bold mb-1"><i class="fas fa-user-plus me-2" style="color:#FF6600;"></i>  Nuevo Cliente</h5>
             <p class="mb-0" style="opacity:0.75; font-size:0.9rem;">Registra un nuevo cliente en el sistema.</p>
         </div>
         <a href="{{ route('admin.clientes.index') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
@@ -72,7 +72,7 @@
                     </div>
                     <div class="d-grid mt-4">
                         <button type="submit" class="btn btn-naranja">
-                            <i class="fas fa-save me-2"></i>Guardar cliente
+                            <i class="fas fa-save me-2"></i>  Guardar cliente
                         </button>
                     </div>
                 </form>

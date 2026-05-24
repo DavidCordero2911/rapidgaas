@@ -20,7 +20,7 @@
 <div class="welcome-banner">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h5 class="fw-bold mb-1"><i class="fas fa-clipboard-list me-2" style="color:#FF6600;"></i>Detalle de Orden #{{ $orden->id }}</h5>
+            <h5 class="fw-bold mb-1"><i class="fas fa-clipboard-list me-2" style="color:#FF6600;"></i>  Detalle de Orden #{{ $orden->id }}</h5>
             <p class="mb-0" style="opacity:0.75; font-size:0.9rem;">
                 Vehículo: <strong>{{ $orden->vehiculo->matricula }}</strong> —
                 <span class="badge-estado estado-{{ $orden->estado }}">{{ ucfirst(str_replace('_', ' ', $orden->estado)) }}</span>

@@ -91,7 +91,7 @@
 
         <div class="mb-3">
             <a href="{{ route('mecanico.reparacion', $orden->id) }}" class="btn-ver">
-                <i class="fas fa-eye me-2"></i>Ver registro de reparación
+                <i class="fas fa-eye me-2"></i>  Ver registro de reparación
             </a>
         </div>
 
@@ -118,7 +118,7 @@
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-actualizar w-100">
-                        <i class="fas fa-save me-1"></i>Guardar
+                        <i class="fas fa-save me-1"></i>  Guardar
                     </button>
                 </div>
             </div>

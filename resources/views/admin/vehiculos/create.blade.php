@@ -15,7 +15,7 @@
 <div class="welcome-banner">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h5 class="fw-bold mb-1"><i class="fas fa-plus me-2" style="color:#FF6600;"></i>Nuevo Vehículo</h5>
+            <h5 class="fw-bold mb-1"><i class="fas fa-plus me-2" style="color:#FF6600;"></i>  Nuevo Vehículo</h5>
             <p class="mb-0" style="opacity:0.75; font-size:0.9rem;">Registra un nuevo vehículo en el sistema.</p>
         </div>
         <a href="{{ route('admin.vehiculos.index') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
@@ -88,7 +88,7 @@
                     </div>
                     <div class="d-grid mt-4">
                         <button type="submit" class="btn btn-naranja">
-                            <i class="fas fa-save me-2"></i>Guardar vehículo
+                            <i class="fas fa-save me-2"></i> Guardar vehículo
                         </button>
                     </div>
                 </form>

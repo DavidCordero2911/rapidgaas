@@ -21,7 +21,7 @@
 <div class="welcome-banner">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h5 class="fw-bold mb-1"><i class="fas fa-motorcycle me-2" style="color:#FF6600;"></i>Gestión de Vehículos</h5>
+            <h5 class="fw-bold mb-1"><i class="fas fa-motorcycle me-2" style="color:#FF6600;"></i>  Gestión de Vehículos</h5>
             <p class="mb-0" style="opacity:0.75; font-size:0.9rem;">Administra los vehículos del taller.</p>
         </div>
         <a href="{{ route('admin.vehiculos.create') }}" class="btn btn-naranja">
@@ -64,14 +64,14 @@
                     <td>
                         <div class="d-flex gap-1">
                             <a href="{{ route('admin.vehiculos.edit', $vehiculo->id) }}" class="btn btn-accion btn-editar">
-                                <i class="fas fa-edit me-1"></i>Editar
+                                <i class="fas fa-edit me-1"></i> Editar
                             </a>
                             <form method="POST" action="{{ route('admin.vehiculos.destroy', $vehiculo->id) }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-accion btn-eliminar"
                                     onclick="return confirm('¿Seguro que quieres eliminar este vehículo?')">
-                                    <i class="fas fa-trash me-1"></i>Eliminar
+                                    <i class="fas fa-trash me-1"></i> Eliminar
                                 </button>
                             </form>
                         </div>
