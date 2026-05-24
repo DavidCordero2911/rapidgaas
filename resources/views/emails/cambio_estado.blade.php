@@ -19,7 +19,7 @@
                     <tr>
                         <td
                             style="background:linear-gradient(135deg,#1a1a2e,#0f3460); padding:35px 40px; text-align:center; border-bottom:4px solid #FF6600; border-radius:12px 12px 0 0;">
-                            <div style="font-size:2rem; margin-bottom:8px;">🏍️</div>
+                            <div style="font-size:2rem; margin-bottom:8px;"></div>
                             <h1 style="margin:0; color:white; font-size:2rem; font-weight:800; letter-spacing:2px;">
                                 RAPID<span style="color:#007FFF;">GAAS</span>
                             </h1>
@@ -35,7 +35,7 @@
                         <td style="background-color:#ffffff; padding:40px;">
 
                             <h2 style="margin:0 0 20px 0; color:#1a1a2e; font-size:1.4rem;">
-                                ¡Tu moto ha sido actualizada! 🔧
+                                ¡Tu moto ha sido actualizada!
                             </h2>
 
                             <p style="margin:0 0 20px 0; color:#444; font-size:1rem; line-height:1.6;">
@@ -87,14 +87,14 @@
 
                             @if ($orden->fecha_estimada)
                                 <p style="margin:0 0 15px 0; color:#444; font-size:0.9rem;">
-                                    📅 <strong>Entrega estimada:</strong>
+                                    <strong>Entrega estimada:</strong>
                                     {{ \Carbon\Carbon::parse($orden->fecha_estimada)->format('d/m/Y') }}
                                 </p>
                             @endif
 
                             @if ($orden->presupuesto_estimado)
                                 <p style="margin:0 0 25px 0; color:#444; font-size:0.9rem;">
-                                    💰 <strong>Presupuesto estimado:</strong>
+                                    <strong>Presupuesto estimado:</strong>
                                     {{ number_format($orden->presupuesto_estimado, 2) }} €
                                 </p>
                             @endif
