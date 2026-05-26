@@ -76,4 +76,6 @@ Route::middleware(['auth', 'role:mecanico|admin'])->prefix('mecanico')->group(fu
 // ==================== CLIENTE ====================
 Route::middleware(['auth', 'verified', 'role:cliente|admin'])->prefix('cliente')->group(function () {
     Route::get('/dashboard', [ClienteController::class, 'index'])->name('cliente.dashboard');
+    Route::get('/notificaciones', [ClienteController::class, 'notificaciones'])->name('cliente.notificaciones');
+    Route::post('/notificaciones/leer', [ClienteController::class, 'marcarLeidas'])->name('cliente.notificaciones.leer');
 });

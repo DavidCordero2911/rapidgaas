@@ -545,6 +545,35 @@
                     del cliente</span>
             </div>
             <div class="d-flex align-items-center gap-3">
+                {{-- NOTIFICACIONES --}}
+                <div style="position:relative;">
+                    <button id="btn-notificaciones" onclick="toggleNotificaciones()"
+                        style="background:transparent; border:1px solid var(--border); color:var(--text-secondary); border-radius:3px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.25s; position:relative;"
+                        onmouseover="this.style.borderColor='var(--naranja)'; this.style.color='var(--naranja)'"
+                        onmouseout="this.style.borderColor='var(--border)'; this.style.color='var(--text-secondary)'">
+                        <i class="fas fa-bell" style="font-size:0.85rem;"></i>
+                        <span id="badge-notif"
+                            style="display:none; position:absolute; top:-5px; right:-5px; background:var(--naranja); color:white; font-size:0.6rem; font-weight:700; border-radius:50%; width:16px; height:16px; align-items:center; justify-content:center; font-family:'Rajdhani',sans-serif;">0</span>
+                    </button>
+                    {{-- PANEL --}}
+                    <div id="panel-notificaciones"
+                        style="display:none; position:absolute; top:46px; right:0; width:320px; background:var(--card-bg); border:1px solid var(--border); border-radius:4px; box-shadow:0 8px 30px rgba(0,0,0,0.4); z-index:9999;">
+                        <div
+                            style="padding:14px 18px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+                            <span
+                                style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-primary);">Notificaciones</span>
+                            <button onclick="marcarTodasLeidas()"
+                                style="background:transparent; border:none; color:var(--naranja); font-size:0.75rem; cursor:pointer; font-family:'Rajdhani',sans-serif; font-weight:600; letter-spacing:0.5px;">Marcar
+                                todas leídas</button>
+                        </div>
+                        <div id="lista-notificaciones" style="max-height:320px; overflow-y:auto;">
+                            <div style="padding:20px; text-align:center; color:var(--text-muted); font-size:0.85rem;">
+                                <i class="fas fa-spinner fa-spin me-2"></i>Cargando...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <span class="topbar-user">
                     <i class="fas fa-user-circle me-1"></i>
                     {{ auth()->user()->nombre }}
@@ -1109,6 +1138,10 @@
         }
 
         function calcularRutaDesde(origen) {
+            // Guardar dirección en localStorage
+            const inputVal = document.getElementById('origen-input').value;
+            if (inputVal) localStorage.setItem('rapidgaas_origen', inputVal);
+
             directionsService.route({
                 origin: origen,
                 destination: {
@@ -1198,6 +1231,78 @@
 
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap"></script>
+    <script>
+        let panelAbierto = false;
+
+        async function cargarNotificaciones() {
+            try {
+                const res = await fetch('{{ route('cliente.notificaciones') }}');
+                const data = await res.json();
+                const badge = document.getElementById('badge-notif');
+                const lista = document.getElementById('lista-notificaciones');
+
+                if (data.length > 0) {
+                    badge.style.display = 'flex';
+                    badge.textContent = data.length > 9 ? '9+' : data.length;
+                    lista.innerHTML = data.map(n => `
+                        <div style="padding:14px 18px; border-bottom:1px solid var(--border); transition:background 0.2s;"
+                             onmouseover="this.style.background='rgba(255,255,255,0.03)'"
+                             onmouseout="this.style.background='transparent'">
+                            <div style="display:flex; align-items:flex-start; gap:12px;">
+                                <div style="width:8px; height:8px; background:var(--naranja); border-radius:50%; margin-top:5px; flex-shrink:0;"></div>
+                                <div style="flex:1;">
+                                    <div style="font-size:0.85rem; color:var(--text-primary); margin-bottom:4px;">${n.data.mensaje}</div>
+                                    <div style="font-size:0.72rem; color:var(--text-muted);">${new Date(n.created_at).toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' })}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    badge.style.display = 'none';
+                    lista.innerHTML =
+                        '<div style="padding:24px; text-align:center; color:var(--text-muted); font-size:0.85rem;"><i class="fas fa-check-circle me-2" style="color:#28a745;"></i>Sin notificaciones nuevas</div>';
+                }
+            } catch (e) {
+                console.error('Error cargando notificaciones', e);
+            }
+        }
+
+        function toggleNotificaciones() {
+            const panel = document.getElementById('panel-notificaciones');
+            panelAbierto = !panelAbierto;
+            panel.style.display = panelAbierto ? 'block' : 'none';
+            if (panelAbierto) cargarNotificaciones();
+        }
+
+        async function marcarTodasLeidas() {
+            await fetch('{{ route('cliente.notificaciones.leer') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json'
+                }
+            });
+            document.getElementById('badge-notif').style.display = 'none';
+            cargarNotificaciones();
+        }
+
+        document.addEventListener('click', (e) => {
+            const btn = document.getElementById('btn-notificaciones');
+            const panel = document.getElementById('panel-notificaciones');
+            if (!btn.contains(e.target) && !panel.contains(e.target)) {
+                panel.style.display = 'none';
+                panelAbierto = false;
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', cargarNotificaciones);
+
+        // Recuperar dirección guardada
+        const origenGuardado = localStorage.getItem('rapidgaas_origen');
+        if (origenGuardado) {
+            document.getElementById('origen-input').value = origenGuardado;
+        }
+    </script>
 </body>
 
 </html>

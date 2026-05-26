@@ -91,4 +91,17 @@ class ClienteController extends Controller
         return redirect()->route('admin.clientes.index')
             ->with('success', 'Cliente eliminado correctamente.');
     }
+
+    public function notificaciones()
+    {
+        $user = auth()->user();
+        $notificaciones = $user->unreadNotifications;
+        return response()->json($notificaciones);
+    }
+
+    public function marcarLeidas()
+    {
+        auth()->user()->unreadNotifications->markAsRead();
+        return response()->json(['success' => true]);
+    }
 }
