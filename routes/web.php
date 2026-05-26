@@ -60,6 +60,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/ordenes/{id}', [OrdenTrabajoController::class, 'show'])->name('admin.ordenes.show');
     Route::get('/ordenes/{id}/editar', [OrdenTrabajoController::class, 'edit'])->name('admin.ordenes.edit');
     Route::put('/ordenes/{id}', [OrdenTrabajoController::class, 'update'])->name('admin.ordenes.update');
+    Route::post('/ordenes/{id}/cerrar', [OrdenTrabajoController::class, 'cerrar'])->name('admin.ordenes.cerrar');
     Route::delete('/ordenes/{id}', [OrdenTrabajoController::class, 'destroy'])->name('admin.ordenes.destroy');
 });
 

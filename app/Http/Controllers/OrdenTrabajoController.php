@@ -117,4 +117,32 @@ class OrdenTrabajoController extends Controller
         return redirect()->route('admin.ordenes.index')
             ->with('success', 'Orden eliminada correctamente.');
     }
+
+    public function cerrar($id)
+    {
+        $orden = OrdenTrabajo::with(['vehiculo.cliente.user'])->findOrFail($id);
+        $estadoAnterior = $orden->estado;
+
+        $orden->estado       = 'entregado';
+        $orden->fecha_entrega = now();
+        $orden->save();
+
+        ActualizacionEstado::create([
+            'orden_id'        => $orden->id,
+            'user_id'         => auth()->id(),
+            'estado_anterior' => $estadoAnterior,
+            'estado_nuevo'    => 'entregado',
+            'comentario'      => 'Vehículo entregado al cliente.',
+        ]);
+
+        // Notificar al cliente
+        if ($orden->vehiculo->cliente && $orden->vehiculo->cliente->user) {
+            $orden->vehiculo->cliente->user->notify(
+                new \App\Notifications\CambioEstadoOrden($orden)
+            );
+        }
+
+        return redirect()->route('admin.ordenes.index')
+            ->with('success', 'Orden cerrada. Vehículo marcado como entregado.');
+    }
 }

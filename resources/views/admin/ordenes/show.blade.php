@@ -26,9 +26,21 @@
                 <span class="badge-estado estado-{{ $orden->estado }}">{{ ucfirst(str_replace('_', ' ', $orden->estado)) }}</span>
             </p>
         </div>
-        <a href="{{ route('admin.ordenes.index') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
-            <i class="fas fa-arrow-left me-1"></i> Volver
-        </a>
+        <div class="d-flex gap-2 align-items-center">
+            @if($orden->estado === 'finalizado')
+            <form method="POST" action="{{ route('admin.ordenes.cerrar', $orden->id) }}" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-sm rounded-pill px-3"
+                    style="background-color:#28a745; color:white; border:none; font-weight:600;"
+                    onclick="return confirm('¿Confirmas que el cliente ha recogido el vehículo?')">
+                    <i class="fas fa-check-double me-1"></i>Marcar como entregado
+                </button>
+            </form>
+            @endif
+            <a href="{{ route('admin.ordenes.index') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">
+                <i class="fas fa-arrow-left me-1"></i> Volver
+            </a>
+        </div>
     </div>
 </div>
 

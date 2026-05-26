@@ -78,6 +78,16 @@
                             <a href="{{ route('admin.ordenes.edit', $orden->id) }}" class="btn btn-accion btn-editar">
                                 <i class="fas fa-edit"></i>
                             </a>
+                            @if($orden->estado === 'finalizado')
+                            <form method="POST" action="{{ route('admin.ordenes.cerrar', $orden->id) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-accion"
+                                    style="background-color:#28a745; color:white;"
+                                    onclick="return confirm('¿Confirmas que el cliente ha recogido el vehículo?')">
+                                    <i class="fas fa-check-double"></i>
+                                </button>
+                            </form>
+                            @endif
                             <form method="POST" action="{{ route('admin.ordenes.destroy', $orden->id) }}">
                                 @csrf
                                 @method('DELETE')
