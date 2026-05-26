@@ -8,18 +8,19 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\OrdenTrabajoController;
 use App\Http\Controllers\RegistroReparacionController;
+use App\Http\Controllers\ChatController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/forzar-logout', function() {
+Route::get('/forzar-logout', function () {
     auth()->logout();
     session()->flush();
     return redirect('/login');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -62,6 +63,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::put('/ordenes/{id}', [OrdenTrabajoController::class, 'update'])->name('admin.ordenes.update');
     Route::post('/ordenes/{id}/cerrar', [OrdenTrabajoController::class, 'cerrar'])->name('admin.ordenes.cerrar');
     Route::delete('/ordenes/{id}', [OrdenTrabajoController::class, 'destroy'])->name('admin.ordenes.destroy');
+
+    // ChatBot
+    Route::get('/chat', [ChatController::class, 'adminIndex'])->name('admin.chat.index');
+    Route::post('/chat/{id}/responder', [ChatController::class, 'responder'])->name('admin.chat.responder');
+    Route::get('/chat', [ChatController::class, 'adminIndex'])->name('admin.chat.index');
+    Route::get('/chat/{id}', [ChatController::class, 'adminShow'])->name('admin.chat.show');
+    Route::post('/chat/{id}/responder', [ChatController::class, 'responder'])->name('admin.chat.responder');
 });
 
 // ==================== MECÁNICO ====================
@@ -79,4 +87,8 @@ Route::middleware(['auth', 'verified', 'role:cliente|admin'])->prefix('cliente')
     Route::get('/dashboard', [ClienteController::class, 'index'])->name('cliente.dashboard');
     Route::get('/notificaciones', [ClienteController::class, 'notificaciones'])->name('cliente.notificaciones');
     Route::post('/notificaciones/leer', [ClienteController::class, 'marcarLeidas'])->name('cliente.notificaciones.leer');
+
+    //Rutas para el chatbot
+    Route::post('/chat/mensaje', [ChatController::class, 'mensaje'])->name('cliente.chat.mensaje');
+    Route::get('/chat/historial', [ChatController::class, 'historial'])->name('cliente.chat.historial');
 });

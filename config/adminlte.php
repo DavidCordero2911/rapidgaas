@@ -335,6 +335,12 @@ return [
                             'url'  => 'admin/ordenes',
                             'icon' => 'fas fa-clipboard-list',
                         ],
+                        [
+                            'text' => 'Chat clientes',
+                            'url'  => 'admin/chat',
+                            'icon' => 'fas fa-comments',
+                            'can'  => 'admin',
+                        ],
                     ],
                 ],
             ],

@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 class MensajeChat extends Model
@@ -12,20 +14,19 @@ class MensajeChat extends Model
         'orden_id',
         'contenido',
         'leido',
+        'cliente_id',
+        'es_bot',
+        'es_admin',
+        'leido_admin'
     ];
 
-    public function emisor()
+    public function user()
     {
         return $this->belongsTo(User::class, 'emisor_id');
     }
 
-    public function receptor()
+    public function cliente()
     {
-        return $this->belongsTo(User::class, 'receptor_id');
-    }
-
-    public function orden()
-    {
-        return $this->belongsTo(OrdenTrabajo::class);
+        return $this->belongsTo(Cliente::class);
     }
 }

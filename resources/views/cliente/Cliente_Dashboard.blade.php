@@ -913,10 +913,108 @@
 
             {{-- SECCIÓN AYUDA --}}
             <div class="tab-section" id="section-ayuda">
-                <div class="coming-soon">
-                    <div class="cs-icon"><i class="fas fa-headset"></i></div>
-                    <h5>Atención al cliente</h5>
-                    <p>Próximamente podrás contactar con nuestro equipo directamente desde aquí.</p>
+                <div class="row g-4">
+
+                    {{-- CHAT --}}
+                    <div class="col-lg-8">
+                        <div class="data-card" style="height:600px; display:flex; flex-direction:column;">
+                            <div class="data-card-header">
+                                <div class="card-icon azul"><i class="fas fa-comments"></i></div>
+                                <h6>Asistente virtual</h6>
+                                <span style="margin-left:auto; font-size:0.72rem; color:var(--text-muted);">
+                                    <i class="fas fa-circle me-1" style="color:#28a745; font-size:0.5rem;"></i>En
+                                    línea
+                                </span>
+                            </div>
+                            <div id="chat-messages"
+                                style="flex:1; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:12px;">
+                            </div>
+                            <div style="padding:16px; border-top:1px solid var(--border);">
+                                <div style="display:flex; gap:10px;">
+                                    <input type="text" id="chat-input" placeholder="Escribe tu mensaje..."
+                                        style="flex:1; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:3px; padding:10px 14px; color:var(--text-primary); font-size:0.88rem; outline:none; font-family:'Inter',sans-serif; transition:border-color 0.25s;"
+                                        onfocus="this.style.borderColor='var(--azul)'"
+                                        onblur="this.style.borderColor='var(--border)'"
+                                        onkeypress="if(event.key==='Enter') enviarMensaje()">
+                                    <button onclick="enviarMensaje()"
+                                        style="background:var(--azul); color:white; border:none; border-radius:3px; padding:10px 20px; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.25s; white-space:nowrap;"
+                                        onmouseover="this.style.background='#0066CC'"
+                                        onmouseout="this.style.background='var(--azul)'">
+                                        <i class="fas fa-paper-plane me-1"></i>Enviar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- INFO LATERAL --}}
+                    <div class="col-lg-4 d-flex flex-column gap-4">
+                        <div class="data-card">
+                            <div class="data-card-header">
+                                <div class="card-icon"><i class="fas fa-info-circle"></i></div>
+                                <h6>Sobre el asistente</h6>
+                            </div>
+                            <div class="data-card-body">
+                                <p
+                                    style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-bottom:16px;">
+                                    Nuestro asistente virtual te ayudará a describir el problema con tu moto y lo
+                                    derivará a nuestro equipo técnico.
+                                </p>
+                                <div style="display:flex; flex-direction:column; gap:10px;">
+                                    <div
+                                        style="display:flex; align-items:center; gap:10px; font-size:0.82rem; color:var(--text-secondary);">
+                                        <div
+                                            style="width:28px; height:28px; background:rgba(255,102,0,0.1); border:1px solid rgba(255,102,0,0.2); border-radius:3px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                            <i class="fas fa-robot"
+                                                style="color:var(--naranja); font-size:0.75rem;"></i>
+                                        </div>
+                                        El bot recoge la información inicial
+                                    </div>
+                                    <div
+                                        style="display:flex; align-items:center; gap:10px; font-size:0.82rem; color:var(--text-secondary);">
+                                        <div
+                                            style="width:28px; height:28px; background:rgba(0,127,255,0.1); border:1px solid rgba(0,127,255,0.2); border-radius:3px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                            <i class="fas fa-user-tie"
+                                                style="color:var(--azul); font-size:0.75rem;"></i>
+                                        </div>
+                                        Un técnico del taller te responderá
+                                    </div>
+                                    <div
+                                        style="display:flex; align-items:center; gap:10px; font-size:0.82rem; color:var(--text-secondary);">
+                                        <div
+                                            style="width:28px; height:28px; background:rgba(40,167,69,0.1); border:1px solid rgba(40,167,69,0.2); border-radius:3px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                            <i class="fas fa-bell" style="color:#28a745; font-size:0.75rem;"></i>
+                                        </div>
+                                        Recibirás notificaciones de respuestas
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <div class="data-card-header">
+                                <div class="card-icon"><i class="fas fa-phone"></i></div>
+                                <h6>Contacto directo</h6>
+                            </div>
+                            <div class="data-card-body">
+                                <div class="mb-3">
+                                    <div class="data-label">Teléfono</div>
+                                    <div class="data-value" style="font-size:0.88rem;">+34 655 64 53 45</div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="data-label">Email</div>
+                                    <div class="data-value" style="font-size:0.88rem;">info@rapidgaas.com</div>
+                                </div>
+                                <div>
+                                    <div class="data-label">Horario de atención</div>
+                                    <div class="data-value" style="font-size:0.88rem; line-height:1.5;">
+                                        Lun — Vie: 08:00 — 19:00<br>Sáb: 09:00 — 14:00
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -1303,6 +1401,137 @@
             document.getElementById('origen-input').value = origenGuardado;
         }
     </script>
+    <script>
+        const CSRF = '{{ csrf_token() }}';
+        let cargandoChat = false;
+        let historialCargado = false;
+
+        function agregarMensaje(texto, tipo) {
+            const chat = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.style.cssText =
+                `display:flex; flex-direction:column; align-items:${tipo === 'cliente' ? 'flex-end' : 'flex-start'};`;
+
+            const bubble = document.createElement('div');
+            bubble.style.cssText = `
+                max-width:75%; padding:10px 15px; border-radius:${tipo === 'cliente' ? '12px 0 12px 12px' : '0 12px 12px 12px'};
+                font-size:0.87rem; line-height:1.6;
+                background:${tipo === 'cliente' ? 'var(--naranja)' : tipo === 'bot' ? 'rgba(0,127,255,0.1)' : 'rgba(255,255,255,0.05)'};
+                color:${tipo === 'cliente' ? 'white' : 'var(--text-primary)'};
+                border:1px solid ${tipo === 'cliente' ? 'transparent' : tipo === 'bot' ? 'rgba(0,127,255,0.2)' : 'var(--border)'};
+            `;
+            bubble.textContent = texto;
+
+            const meta = document.createElement('div');
+            meta.style.cssText = 'font-size:0.7rem; color:var(--text-muted); margin-top:4px;';
+            meta.textContent = tipo === 'cliente' ? 'Tú' : tipo === 'bot' ? 'Asistente RapidGaas' : 'Equipo RapidGaas';
+
+            div.appendChild(bubble);
+            div.appendChild(meta);
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function mostrarTyping() {
+            const chat = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.id = 'typing-indicator';
+            div.style.cssText = 'display:flex; align-items:flex-start;';
+            div.innerHTML = `
+                <div style="padding:10px 15px; background:rgba(0,127,255,0.1); border:1px solid rgba(0,127,255,0.2); border-radius:0 12px 12px 12px;">
+                    <span style="display:flex; gap:4px;">
+                        <span style="width:6px; height:6px; background:var(--azul); border-radius:50%; animation:typing 1s infinite 0s;"></span>
+                        <span style="width:6px; height:6px; background:var(--azul); border-radius:50%; animation:typing 1s infinite 0.2s;"></span>
+                        <span style="width:6px; height:6px; background:var(--azul); border-radius:50%; animation:typing 1s infinite 0.4s;"></span>
+                    </span>
+                </div>
+            `;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function quitarTyping() {
+            const t = document.getElementById('typing-indicator');
+            if (t) t.remove();
+        }
+
+        async function enviarMensaje() {
+            const input = document.getElementById('chat-input');
+            const texto = input.value.trim();
+            if (!texto || cargandoChat) return;
+
+            input.value = '';
+            cargandoChat = true;
+            agregarMensaje(texto, 'cliente');
+            mostrarTyping();
+
+            try {
+                const res = await fetch('{{ route('cliente.chat.mensaje') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': CSRF
+                    },
+                    body: JSON.stringify({
+                        mensaje: texto
+                    }),
+                });
+                const data = await res.json();
+                quitarTyping();
+                agregarMensaje(data.respuesta, 'bot');
+            } catch (e) {
+                quitarTyping();
+                agregarMensaje('Ha ocurrido un error. Por favor inténtalo de nuevo.', 'bot');
+            } finally {
+                cargandoChat = false;
+            }
+        }
+
+        async function cargarHistorialChat() {
+            if (historialCargado) return;
+            historialCargado = true;
+            try {
+                const res = await fetch('{{ route('cliente.chat.historial') }}');
+                const data = await res.json();
+                if (data.length > 0) {
+                    data.forEach(m => {
+                        const tipo = m.es_admin ? 'admin' : m.es_bot ? 'bot' : 'cliente';
+                        agregarMensaje(m.contenido || m.mensaje || '', tipo);
+                    });
+                } else {
+                    setTimeout(() => {
+                        agregarMensaje(
+                            '¡Hola! Soy el asistente virtual de RapidGaas. ¿En qué puedo ayudarte hoy?',
+                            'bot');
+                    }, 500);
+                }
+            } catch (e) {
+                console.error('Error cargando historial del chat', e);
+            }
+        }
+
+        const _cambiarSeccionOriginal2 = window.cambiarSeccion;
+        window.cambiarSeccion = function(seccion, tab) {
+            _cambiarSeccionOriginal2(seccion, tab);
+            if (seccion === 'ayuda') cargarHistorialChat();
+        };
+    </script>
+
+    <style>
+        @keyframes typing {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(-3px);
+            }
+        }
+    </style>
 </body>
 
 </html>
